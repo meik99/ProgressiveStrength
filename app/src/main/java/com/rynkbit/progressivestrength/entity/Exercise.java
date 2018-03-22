@@ -19,11 +19,12 @@ public class Exercise implements Parcelable{
     public Exercise() {
     }
 
-    public Exercise(int id, String name, int repetions, int sets) {
+    public Exercise(int id, String name, int repetions, int sets, double weight) {
         this.id = id;
         this.name = name;
         this.repetions = repetions;
         this.sets = sets;
+        this.weight = weight;
     }
 
     protected Exercise(Parcel in) {
@@ -31,6 +32,7 @@ public class Exercise implements Parcelable{
         name = in.readString();
         repetions = in.readInt();
         sets = in.readInt();
+        weight = in.readDouble();
     }
 
     public static final Creator<Exercise> CREATOR = new Creator<Exercise>() {
@@ -88,6 +90,7 @@ public class Exercise implements Parcelable{
         dest.writeString(name);
         dest.writeInt(repetions);
         dest.writeInt(sets);
+        dest.writeDouble(weight);
     }
 
     public double getWeight() {
