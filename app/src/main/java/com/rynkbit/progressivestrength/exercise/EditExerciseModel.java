@@ -52,22 +52,22 @@ public class EditExerciseModel implements View.OnKeyListener {
                 switch (editText.getId()) {
                     case R.id.editName:
                         exercise.setName(editText.getText().toString());
-                        break;
+                        return true;
                     case R.id.editRepetions:
                         exercise.setRepetions(
                                 Integer.parseInt(
                                         editText.getText().toString()));
-                        break;
+                        return true;
                     case R.id.editSets:
                         exercise.setSets(
                                 Integer.parseInt(
                                         editText.getText().toString()));
-                        break;
+                        return true;
                     case R.id.editWeight:
                         exercise.setWeight(
                                 Double.parseDouble(
                                         editText.getText().toString()));
-                        break;
+                        return true;
                 }
             } catch (NumberFormatException ex) {
                 editText.setError(editText.getContext().getString(R.string.wrong_number));

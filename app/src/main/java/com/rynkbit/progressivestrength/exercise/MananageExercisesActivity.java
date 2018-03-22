@@ -21,5 +21,6 @@ public class MananageExercisesActivity extends AppCompatActivity {
 
         fabAddExercise.setOnClickListener((v) -> startActivity(
                 new Intent(v.getContext(), EditExerciseActivity.class)));
+
     }
 }
