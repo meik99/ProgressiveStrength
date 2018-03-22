@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ProgressiveStrength</string>
+    <string name="manage_exercises">Manage Exercises</string>
 </resources>
