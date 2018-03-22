@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ProgressiveStrength</string>
     <string name="manage_exercises">Manage Exercises</string>
+    <string name="name">Name</string>
+    <string name="sets">Sets</string>
+    <string name="repetions">Repetions</string>
+    <string name="weight">Weight</string>
+    <string name="accept">Accept</string>
+    <string name="wrong_number">Insert valid number</string>
 </resources>

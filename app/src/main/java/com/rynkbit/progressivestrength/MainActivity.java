@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+import com.rynkbit.progressivestrength.exercise.MananageExercisesActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton fabAddDay;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnManageExercises.setOnClickListener((view) -> {
             startActivity(
-                    new Intent(view.getContext(), MainActivity.class)
+                    new Intent(view.getContext(), MananageExercisesActivity.class)
             );
         });
     }
