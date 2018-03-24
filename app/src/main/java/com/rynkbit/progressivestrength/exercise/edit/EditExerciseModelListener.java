@@ -1,4 +1,4 @@
-package com.rynkbit.progressivestrength.exercise;
+package com.rynkbit.progressivestrength.exercise.edit;
 
 import com.rynkbit.progressivestrength.entity.Exercise;
 
@@ -6,6 +6,6 @@ import com.rynkbit.progressivestrength.entity.Exercise;
  * Created by michael on 22.03.18.
  */
 
-public interface ExerciseModelListener {
+public interface EditExerciseModelListener {
     void onExerciseModelChanged(Exercise exercise);
 }

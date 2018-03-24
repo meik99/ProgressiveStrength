@@ -1,8 +1,7 @@
-package com.rynkbit.progressivestrength.exercise;
+package com.rynkbit.progressivestrength.exercise.edit;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +10,7 @@ import com.rynkbit.progressivestrength.R;
 import com.rynkbit.progressivestrength.db.memory.repository.ExerciseRepository;
 import com.rynkbit.progressivestrength.entity.Exercise;
 
-public class EditExerciseActivity extends AppCompatActivity implements ExerciseModelListener, View.OnClickListener {
+public class EditExerciseActivity extends AppCompatActivity implements EditExerciseModelListener, View.OnClickListener {
     public static final String EXTRA_EXERCISE = "exercise";
 
     private EditText editName;
@@ -60,5 +59,6 @@ public class EditExerciseActivity extends AppCompatActivity implements ExerciseM
     @Override
     public void onClick(View v) {
         ExerciseRepository.getInstance().getAll().add(exerciseModel.getExercise());
+        finish();
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rynkbit.progressivestrength.exercise.EditExerciseActivity">
+    tools:context="com.rynkbit.progressivestrength.exercise.edit.EditExerciseActivity">
 
     <EditText
         android:id="@+id/editName"

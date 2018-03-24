@@ -18,7 +18,7 @@ public class ExerciseRepositoryTest {
     private static final int N_EXERCISES = 10000;
 
     @Test
-    public void isExerciseRepositoryARepository(){
+    public void isExerciseRepositoryFromRepository(){
         ExerciseRepository exerciseRepository = ExerciseRepository.getInstance();
         assertNotNull(exerciseRepository);
         assertTrue(exerciseRepository instanceof Repository);

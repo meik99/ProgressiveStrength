@@ -1,6 +1,5 @@
-package com.rynkbit.progressivestrength.exercise;
+package com.rynkbit.progressivestrength.exercise.edit;
 
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -17,13 +16,13 @@ import java.util.List;
 
 public class EditExerciseModel implements View.OnKeyListener {
     private Exercise exercise;
-    private List<ExerciseModelListener> listeners;
+    private List<EditExerciseModelListener> listeners;
 
-    public void addExerciseModelListener(ExerciseModelListener listener) {
+    public void addExerciseModelListener(EditExerciseModelListener listener) {
         listeners.add(listener);
     }
 
-    public void removeExerciseModelListener(ExerciseModelListener listener) {
+    public void removeExerciseModelListener(EditExerciseModelListener listener) {
         listeners.remove(listener);
     }
 
@@ -38,7 +37,7 @@ public class EditExerciseModel implements View.OnKeyListener {
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
 
-        for (ExerciseModelListener listener :
+        for (EditExerciseModelListener listener :
                 listeners) {
             listener.onExerciseModelChanged(exercise);
         }
@@ -52,22 +51,22 @@ public class EditExerciseModel implements View.OnKeyListener {
                 switch (editText.getId()) {
                     case R.id.editName:
                         exercise.setName(editText.getText().toString());
-                        return true;
+                        break;
                     case R.id.editRepetions:
                         exercise.setRepetions(
                                 Integer.parseInt(
                                         editText.getText().toString()));
-                        return true;
+                        break;
                     case R.id.editSets:
                         exercise.setSets(
                                 Integer.parseInt(
                                         editText.getText().toString()));
-                        return true;
+                        break;
                     case R.id.editWeight:
                         exercise.setWeight(
                                 Double.parseDouble(
                                         editText.getText().toString()));
-                        return true;
+                        break;
                 }
             } catch (NumberFormatException ex) {
                 editText.setError(editText.getContext().getString(R.string.wrong_number));

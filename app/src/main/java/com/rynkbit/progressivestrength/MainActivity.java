@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.rynkbit.progressivestrength.db.sqlite.DBHelper;
 import com.rynkbit.progressivestrength.exercise.MananageExercisesActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        OpenHelperManager.setHelper(new DBHelper(this));
+
         fabAddDay = findViewById(R.id.fabAddDays);
         listDays = findViewById(R.id.listDays);
         btnManageExercises = findViewById(R.id.btnManageExercises);
@@ -31,5 +35,14 @@ public class MainActivity extends AppCompatActivity {
                     new Intent(view.getContext(), MananageExercisesActivity.class)
             );
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(OpenHelperManager.getHelper(this, DBHelper.class) != null){
+            OpenHelperManager.releaseHelper();
+        }
     }
 }
