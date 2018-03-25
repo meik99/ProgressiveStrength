@@ -14,19 +14,55 @@ import java.util.List;
  * Created by michael on 24.03.18.
  */
 
-public class ExerciseFacade implements Facade {
+public class ExerciseFacade implements Facade<Exercise> {
     private final Context context;
 
     public ExerciseFacade(Context context){
         this.context = context;
     }
 
-    public List<Exercise> findAll(){
+    private Dao<Exercise, Integer> getDao(){
         try {
             Dao<Exercise, Integer> exercisesDao = OpenHelperManager.getHelper(context, DBHelper.class).getDao(Exercise.class);
-            return exercisesDao.queryForAll();
+            return exercisesDao;
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<Exercise> findAll(){
+        Dao<Exercise, Integer> exerciseDao = getDao();
+        try {
+            return exerciseDao.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void merge(Exercise exercise){
+        try {
+            getDao().createOrUpdate(exercise);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Exercise findById(int id){
+        try {
+            return getDao().queryForId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void remove(int id){
+        try {
+            getDao().deleteById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

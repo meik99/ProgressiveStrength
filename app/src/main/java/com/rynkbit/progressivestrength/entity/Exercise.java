@@ -3,17 +3,25 @@ package com.rynkbit.progressivestrength.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.Locale;
 
 /**
  * Created by michael on 22.03.18.
  */
-
+@DatabaseTable
 public class Exercise implements Parcelable{
+    @DatabaseField(generatedId = true)
     private int id;
+    @DatabaseField
     private String name;
+    @DatabaseField
     private int repetions;
+    @DatabaseField
     private int sets;
+    @DatabaseField
     private double weight;
 
     public Exercise() {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.rynkbit.progressivestrength.db.sqlite.DBHelper;
 import com.rynkbit.progressivestrength.db.sqlite.facade.ExerciseFacade;
 import com.rynkbit.progressivestrength.db.sqlite.facade.Facade;
 import com.rynkbit.progressivestrength.entity.Exercise;
@@ -28,8 +29,16 @@ public class ExerciseFacadeTest{
     private Context instrumentationContext;
 
     @Before
-    public void initContext(){
+    public void beforeTests(){
         instrumentationContext = InstrumentationRegistry.getTargetContext();
+        dropCreateDatabase();
+    }
+
+
+    public void dropCreateDatabase(){
+        DBHelper dbHelper = new DBHelper(instrumentationContext);
+        dbHelper.getReadableDatabase();
+        dbHelper.getWritableDatabase();
     }
 
     @Test
