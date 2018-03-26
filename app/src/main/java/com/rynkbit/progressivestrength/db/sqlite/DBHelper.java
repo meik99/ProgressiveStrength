@@ -4,12 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.rynkbit.progressivestrength.entity.Day;
-import com.rynkbit.progressivestrength.entity.DayExercise;
 import com.rynkbit.progressivestrength.entity.Exercise;
 
 import java.sql.SQLException;
@@ -20,7 +17,7 @@ import java.sql.SQLException;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "progressivestrength.sqlite";
-    private static final int VERSION = 3;
+    private static final int VERSION = 7;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -29,9 +26,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, Exercise.class);
-            TableUtils.createTable(connectionSource, Day.class);
-            TableUtils.createTable(connectionSource, DayExercise.class);
+            TableUtils.createTableIfNotExists(connectionSource, Exercise.class);
+            TableUtils.createTableIfNotExists(connectionSource, Day.class);
+//            TableUtils.createTable(connectionSource, DayExercise.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,9 +37,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, DayExercise.class, false);
-            TableUtils.dropTable(connectionSource, Day.class, false);
-            TableUtils.dropTable(connectionSource, Exercise.class, false);
+//            TableUtils.dropTable(connectionSource, DayExercise.class, true);
+            TableUtils.dropTable(connectionSource, Day.class, true);
+            TableUtils.dropTable(connectionSource, Exercise.class, true);
         } catch (SQLException e) {
             e.printStackTrace();
         }

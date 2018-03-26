@@ -1,8 +1,12 @@
 package com.rynkbit.progressivestrength.entity;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,8 +20,8 @@ public class Day {
     private int id;
     @DatabaseField
     private Date date;
-
-    private List<Integer> exerciseIds;
+    @ForeignCollectionField(eager = true)
+    private Collection<Exercise> exercise;
 
     public Date getDate() {
         return date;
@@ -28,18 +32,16 @@ public class Day {
     }
 
     public Day() {
-        exerciseIds = new LinkedList<>();
+        exercise = new LinkedList<>();
         this.date = new Date();
     }
 
-    public Day(int id, int... exerciseIds){
+    public Day(int id, Exercise... exercises){
         this();
 
         this.id = id;
 
-        for(int exerciseId : exerciseIds){
-            this.exerciseIds.add(exerciseId);
-        }
+        this.exercise.addAll(Arrays.asList(exercises));
     }
 
     public int getId() {
@@ -50,11 +52,11 @@ public class Day {
         this.id = id;
     }
 
-    public List<Integer> getExerciseIds() {
-        return exerciseIds;
+    public Collection<Exercise> getExercises() {
+        return exercise;
     }
 
-    public void setExerciseIds(List<Integer> exerciseIds) {
-        this.exerciseIds = exerciseIds;
+    public void setExercises(List<Exercise> exercise) {
+        this.exercise = exercise;
     }
 }

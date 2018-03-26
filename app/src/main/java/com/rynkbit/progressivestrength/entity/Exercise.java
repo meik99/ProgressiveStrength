@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Locale;
@@ -23,6 +24,8 @@ public class Exercise implements Parcelable{
     private int sets;
     @DatabaseField
     private double weight;
+    @DatabaseField(foreign = true)
+    private Day day;
 
     public Exercise() {
     }
@@ -112,5 +115,17 @@ public class Exercise implements Parcelable{
     @Override
     public String toString() {
         return String.format(Locale.getDefault(), "Id: %d, Name: %s, Sets: %d, Repetitions: %d, Weight %f", id, name, sets, repetions, weight);
+    }
+
+    public String getStats(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(getWeight())
+                .append(" kg, ")
+                .append(getRepetions())
+                .append(" Reps, ")
+                .append(getSets())
+                .append(" Sets");
+        return stringBuilder.toString();
     }
 }

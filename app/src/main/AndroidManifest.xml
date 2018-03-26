@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".exercise.MananageExercisesActivity" />
-        <activity android:name=".exercise.edit.EditExerciseActivity"></activity>
+        <activity android:name=".exercise.edit.EditExerciseActivity" />
+        <activity android:name=".day.DayActivity"></activity>
     </application>
 
 </manifest>

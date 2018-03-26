@@ -7,4 +7,8 @@
     <string name="weight">Weight</string>
     <string name="accept">Accept</string>
     <string name="wrong_number">Insert valid number</string>
+    <string name="exercises">Exercises</string>
+    <string name="date">Date</string>
+    <string name="add">Add</string>
+    <string name="number_exercises">Exercises: %1$d</string>
 </resources>

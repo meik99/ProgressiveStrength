@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.rynkbit.progressivestrength.R;
 import com.rynkbit.progressivestrength.db.memory.repository.ExerciseRepository;
+import com.rynkbit.progressivestrength.db.sqlite.facade.ExerciseFacade;
 import com.rynkbit.progressivestrength.entity.Exercise;
 
 public class EditExerciseActivity extends AppCompatActivity implements EditExerciseModelListener, View.OnClickListener {
@@ -58,7 +59,7 @@ public class EditExerciseActivity extends AppCompatActivity implements EditExerc
 
     @Override
     public void onClick(View v) {
-        ExerciseRepository.getInstance().getAll().add(exerciseModel.getExercise());
+        new ExerciseFacade(this).merge(exerciseModel.getExercise());
         finish();
     }
 }

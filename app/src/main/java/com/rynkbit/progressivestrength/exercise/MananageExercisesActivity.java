@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.rynkbit.progressivestrength.R;
+import com.rynkbit.progressivestrength.db.sqlite.facade.ExerciseFacade;
 import com.rynkbit.progressivestrength.exercise.edit.EditExerciseActivity;
 
 public class MananageExercisesActivity extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class MananageExercisesActivity extends AppCompatActivity {
 
         FloatingActionButton fabAddExercise = findViewById(R.id.fabAddExercise);
         RecyclerView listExercises = findViewById(R.id.listExercises);
-        exerciseListAdapter = new ExerciseListAdapter();
+        exerciseListAdapter = new ExerciseListAdapter(new ExerciseFacade(this).findAll());
 
         fabAddExercise.setOnClickListener((v) -> startActivity(
                 new Intent(v.getContext(), EditExerciseActivity.class)));
@@ -34,6 +35,6 @@ public class MananageExercisesActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        exerciseListAdapter.notifyDataSetChanged();
+        exerciseListAdapter.setExercises(new ExerciseFacade(this).findAll());
     }
 }
