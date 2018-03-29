@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProgressiveStrength.iml" filepath="$PROJECT_DIR$/ProgressiveStrength.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bananaorm/bananaorm.iml" filepath="$PROJECT_DIR$/bananaorm/bananaorm.iml" />
     </modules>
   </component>
 </project>

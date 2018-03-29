@@ -1,17 +1,19 @@
 package com.rynkbit.progressivestrength;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rynkbit.progressivestrength.day.DayActivity;
 import com.rynkbit.progressivestrength.db.sqlite.facade.DayFacade;
 import com.rynkbit.progressivestrength.entity.Day;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -39,8 +41,8 @@ class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewHolder> 
 
     @Override
     public void onBindViewHolder(DayViewHolder holder, int position) {
-        Day day = dayFacade.findAll().get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("dddd dd-MMMM-yyyy");
+        final Day day = dayFacade.findAll().get(position);
+        SimpleDateFormat sdf = new DayDateFormat();
 
         holder.txtDate.setText(sdf.format(day.getDate()));
         holder.txtNumberExercises.setText(
@@ -48,6 +50,27 @@ class DayListAdapter extends RecyclerView.Adapter<DayListAdapter.DayViewHolder> 
                         Locale.getDefault(),
                         holder.itemView.getContext().getString(R.string.number_exercises),
                         day.getExercises().size()));
+
+        holder.itemView.setOnClickListener((view) -> {
+            Intent intent = new Intent(view.getContext(), DayActivity.class);
+            intent.putExtra(DayActivity.EXTRA_DAY, day);
+            view.getContext().startActivity(intent);
+        });
+        holder.itemView.setOnLongClickListener((View v) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle(R.string.delete_day);
+            builder.setMessage(R.string.delete_day_warning);
+            builder.setPositiveButton(R.string.delete, (dialog, which) -> {
+                dayFacade.remove(day.getId());
+                notifyDataSetChanged();
+                dialog.dismiss();
+            });
+            builder.setNegativeButton(R.string.cancel, ((dialog, which) -> {
+                dialog.dismiss();
+            }));
+            builder.create().show();
+            return false;
+        });
     }
 
     @Override

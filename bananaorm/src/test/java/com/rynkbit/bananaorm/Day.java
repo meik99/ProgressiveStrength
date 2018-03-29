@@ -1,9 +1,7 @@
-package com.rynkbit.progressivestrength.entity;
+package com.rynkbit.bananaorm;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.rynkbit.bananaorm.IdEntity;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -23,7 +21,7 @@ public class Day implements Parcelable, IdEntity {
 
         for(int i = 0; i < size; i++){
             exercises.add(
-                    in.readParcelable(Exercise.class.getClassLoader())
+                    (Exercise) in.readParcelable(Exercise.class.getClassLoader())
             );
         }
     }

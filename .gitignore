@@ -227,6 +227,9 @@ cmake-build-debug/
 # Sonarlint plugin
 .idea/sonarlint
 
+bananaorm
+bananaorm/*
+
 
 # End of https://www.gitignore.io/api/android,intellij,androidstudio
 

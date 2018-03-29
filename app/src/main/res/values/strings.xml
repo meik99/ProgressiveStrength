@@ -11,4 +11,8 @@
     <string name="date">Date</string>
     <string name="add">Add</string>
     <string name="number_exercises">Exercises: %1$d</string>
+    <string name="delete_day">Delete Day</string>
+    <string name="delete_day_warning">Do you want to delete this training?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>

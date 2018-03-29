@@ -23,11 +23,16 @@ import java.util.List;
  */
 
 class ExerciseSpinnerAdapter extends BaseAdapter {
-    private final List<Exercise> exercises;
+    private List<Exercise> exercises;
 
     public ExerciseSpinnerAdapter(Context context, List<Exercise> exercises) {
         super();
         this.exercises = exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+        notifyDataSetChanged();
     }
 
     @Override

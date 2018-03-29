@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.rynkbit.progressivestrength.DayDateFormat;
 import com.rynkbit.progressivestrength.R;
 import com.rynkbit.progressivestrength.db.sqlite.facade.DayFacade;
 import com.rynkbit.progressivestrength.db.sqlite.facade.ExerciseFacade;
@@ -17,7 +18,8 @@ import com.rynkbit.progressivestrength.entity.Exercise;
 import com.rynkbit.progressivestrength.exercise.ExerciseListAdapter;
 
 import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.util.Collection;
+import java.util.List;
 
 public class DayActivity extends AppCompatActivity {
     public static final String EXTRA_DAY = "day";
@@ -30,13 +32,14 @@ public class DayActivity extends AppCompatActivity {
     private Button btnAccept;
     private RecyclerView listExercises;
     private ExerciseListAdapter exerciseListAdapter;
+    private ExerciseSpinnerAdapter exerciseSpinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dddd dd.MMMM.yyyy", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new DayDateFormat();
         dayModel = new DayModel();
 
         txtDate = findViewById(R.id.txtDate);
@@ -59,19 +62,40 @@ public class DayActivity extends AppCompatActivity {
 
         txtDate.setText(simpleDateFormat.format(dayModel.getDay().getDate()));
 
-        listExercises.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
+        listExercises.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         listExercises.setAdapter(exerciseListAdapter);
 
-        spinnerExercises.setAdapter(new ExerciseSpinnerAdapter(this, new ExerciseFacade(this).findAll()));
+        exerciseSpinnerAdapter = new ExerciseSpinnerAdapter(this, new ExerciseFacade(this).findAll());
+        spinnerExercises.setAdapter(exerciseSpinnerAdapter);
 
         btnAddExercise.setOnClickListener((view) -> {
-            dayModel.getDay().getExercises().add((Exercise) spinnerExercises.getSelectedItem());
-            exerciseListAdapter.setExercises(dayModel.getDay().getExercises());
+            exerciseListAdapter.getExercises().add((Exercise) spinnerExercises.getSelectedItem());
+            exerciseListAdapter.notifyDataSetChanged();
         });
 
         btnAccept.setOnClickListener((view) -> {
+            dayModel.getDay().setExercises((List<Exercise>) exerciseListAdapter.getExercises());
             new DayFacade(view.getContext()).merge(dayModel.getDay());
             finish();
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Collection<Exercise> exercises = exerciseListAdapter.getExercises();
+        ExerciseFacade exerciseFacade = new ExerciseFacade(this);
+
+        for(Exercise e : exercises){
+            Exercise updatedExercise = exerciseFacade.findById(e.getId());
+            e.setName(updatedExercise.getName());
+            e.setWeight(updatedExercise.getWeight());
+            e.setRepetions(updatedExercise.getRepetions());
+            e.setSets(updatedExercise.getSets());
+        }
+
+        exerciseListAdapter.notifyDataSetChanged();
+        exerciseSpinnerAdapter.setExercises(new ExerciseFacade(this).findAll());
     }
 }

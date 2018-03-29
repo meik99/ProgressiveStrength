@@ -2,12 +2,9 @@ package com.rynkbit.progressivestrength.db.sqlite.facade;
 
 import android.content.Context;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.rynkbit.progressivestrength.db.sqlite.DBHelper;
 import com.rynkbit.progressivestrength.entity.Exercise;
 
-import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,48 +18,23 @@ public class ExerciseFacade implements Facade<Exercise> {
         this.context = context;
     }
 
-    private Dao<Exercise, Integer> getDao(){
-        try {
-            Dao<Exercise, Integer> exercisesDao = OpenHelperManager.getHelper(context, DBHelper.class).getDao(Exercise.class);
-            return exercisesDao;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    @Override
+    public List<Exercise> findAll() {
+        return new LinkedList<>();
     }
 
-    public List<Exercise> findAll(){
-        Dao<Exercise, Integer> exerciseDao = getDao();
-        try {
-            return exerciseDao.queryForAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    @Override
+    public Exercise findById(int id) {
+        return new Exercise();
     }
 
-    public void merge(Exercise exercise){
-        try {
-            getDao().createOrUpdate(exercise);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void merge(Exercise entity) {
+
     }
 
-    public Exercise findById(int id){
-        try {
-            return getDao().queryForId(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    @Override
+    public void remove(int id) {
 
-    public void remove(int id){
-        try {
-            getDao().deleteById(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -1,13 +1,11 @@
-package com.rynkbit.progressivestrength.entity;
+package com.rynkbit.bananaorm;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.rynkbit.bananaorm.IdEntity;
-
 import java.util.Locale;
 
-public class Exercise implements Parcelable, IdEntity {
+public class Exercise implements Parcelable, IdEntity{
     private int id;
     private String name;
     private int repetions;

@@ -1,19 +1,15 @@
 package com.rynkbit.progressivestrength;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.View;
 import android.widget.Button;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.rynkbit.progressivestrength.day.DayActivity;
 import com.rynkbit.progressivestrength.db.sqlite.DBHelper;
-import com.rynkbit.progressivestrength.entity.Day;
 import com.rynkbit.progressivestrength.exercise.MananageExercisesActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        OpenHelperManager.setHelper(new DBHelper(this));
+        new DBHelper(this);
 
         fabAddDay = findViewById(R.id.fabAddDays);
         listDays = findViewById(R.id.listDays);
@@ -60,9 +56,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if(OpenHelperManager.getHelper(this, DBHelper.class) != null){
-            OpenHelperManager.releaseHelper();
-        }
     }
 }

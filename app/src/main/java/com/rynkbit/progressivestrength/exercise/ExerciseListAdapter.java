@@ -28,11 +28,16 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     public ExerciseListAdapter(Collection<Exercise> exercises) {
         this.exercises = exercises;
+
     }
 
     public void setExercises(Collection<Exercise> exercises) {
         this.exercises = exercises;
         notifyDataSetChanged();
+    }
+
+    public Collection<Exercise> getExercises() {
+        return exercises;
     }
 
     @Override
@@ -61,6 +66,11 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             Intent intent = new Intent(view.getContext(), EditExerciseActivity.class);
             intent.putExtra(EditExerciseActivity.EXTRA_EXERCISE, exercise);
             view.getContext().startActivity(intent);
+        });
+        holder.itemView.setOnLongClickListener((view) -> {
+            exercises.remove(exercise);
+            notifyDataSetChanged();
+            return false;
         });
     }
 
