@@ -10,7 +10,7 @@ import java.util.Locale;
 public class Exercise implements Parcelable, IdEntity {
     private int id;
     private String name;
-    private int repetions;
+    private int repetitions;
     private int sets;
     private double weight;
 
@@ -21,7 +21,7 @@ public class Exercise implements Parcelable, IdEntity {
     public Exercise(int id, String name, int repetions, int sets, double weight) {
         this.id = id;
         this.name = name;
-        this.repetions = repetions;
+        this.repetitions = repetions;
         this.sets = sets;
         this.weight = weight;
     }
@@ -29,7 +29,7 @@ public class Exercise implements Parcelable, IdEntity {
     protected Exercise(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        repetions = in.readInt();
+        repetitions = in.readInt();
         sets = in.readInt();
         weight = in.readDouble();
     }
@@ -62,12 +62,12 @@ public class Exercise implements Parcelable, IdEntity {
         this.name = name;
     }
 
-    public int getRepetions() {
-        return repetions;
+    public int getRepetitions() {
+        return repetitions;
     }
 
-    public void setRepetions(int repetions) {
-        this.repetions = repetions;
+    public void setRepetitions(int repetions) {
+        this.repetitions = repetions;
     }
 
     public int getSets() {
@@ -87,7 +87,7 @@ public class Exercise implements Parcelable, IdEntity {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        dest.writeInt(repetions);
+        dest.writeInt(repetitions);
         dest.writeInt(sets);
         dest.writeDouble(weight);
     }
@@ -102,7 +102,7 @@ public class Exercise implements Parcelable, IdEntity {
 
     @Override
     public String toString() {
-        return String.format(Locale.getDefault(), "Id: %d, Name: %s, Sets: %d, Repetitions: %d, Weight %f", id, name, sets, repetions, weight);
+        return String.format(Locale.getDefault(), "Id: %d, Name: %s, Sets: %d, Repetitions: %d, Weight %f", id, name, sets, repetitions, weight);
     }
 
     public String getStats(){
@@ -110,7 +110,7 @@ public class Exercise implements Parcelable, IdEntity {
         stringBuilder
                 .append(getSets())
                 .append(" Sets, ")
-                .append(getRepetions())
+                .append(getRepetitions())
                 .append(" Reps, ")
                 .append(getWeight())
                 .append(" kg");

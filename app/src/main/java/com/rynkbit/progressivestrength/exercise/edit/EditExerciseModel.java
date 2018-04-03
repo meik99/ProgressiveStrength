@@ -53,7 +53,7 @@ public class EditExerciseModel implements View.OnKeyListener {
                         exercise.setName(editText.getText().toString());
                         break;
                     case R.id.editRepetions:
-                        exercise.setRepetions(
+                        exercise.setRepetitions(
                                 Integer.parseInt(
                                         editText.getText().toString()));
                         break;

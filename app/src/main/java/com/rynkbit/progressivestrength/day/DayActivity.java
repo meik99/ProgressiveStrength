@@ -91,7 +91,7 @@ public class DayActivity extends AppCompatActivity {
             Exercise updatedExercise = exerciseFacade.findById(e.getId());
             e.setName(updatedExercise.getName());
             e.setWeight(updatedExercise.getWeight());
-            e.setRepetions(updatedExercise.getRepetions());
+            e.setRepetitions(updatedExercise.getRepetitions());
             e.setSets(updatedExercise.getSets());
         }
 

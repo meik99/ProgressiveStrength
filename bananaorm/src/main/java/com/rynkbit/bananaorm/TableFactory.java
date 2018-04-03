@@ -1,17 +1,57 @@
 package com.rynkbit.bananaorm;
 
-import android.support.annotation.VisibleForTesting;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class TableFactory {
-    public static String createTableQuery(Class<? extends Entity> clazz){
+    private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
+
+    /**
+     * Returns a string representing a SQLite-Query that drops
+     * a table which corresponds to the class
+     * @param entityClass
+     * @return
+     */
+    public String dropTableQuery(Class<? extends Entity> entityClass) {
+        List<Field> fields = Arrays.asList(entityClass.getDeclaredFields());
+        Method[] methods = entityClass.getDeclaredMethods();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Field field: fields) {
+            if(field.getType() == List.class && hasInterface(getGenericType(field), IdEntity.class)){
+                Method getter = getGetter(field, methods);
+                Method setter = getSetter(field, methods);
+
+                if(getter != null && setter != null) {
+                    stringBuilder.append(DROP_TABLE)
+                            .append(entityClass.getSimpleName().toUpperCase())
+                            .append("_")
+                            .append(getGenericType(field).getSimpleName().toUpperCase())
+                            .append(";");
+                }
+            }
+        }
+
+        stringBuilder.append(DROP_TABLE)
+                .append(entityClass.getSimpleName().toUpperCase())
+                .append(";");
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Returns a string representing a SQLite-Query to create a
+     * table that maps the entities properties to the table
+     * @param clazz
+     * @return
+     */
+    public String createTableQuery(Class<? extends Entity> clazz){
         StringBuilder builder = new StringBuilder();
         List<String> associationTables = new LinkedList<>();
         Field fields[] = clazz.getDeclaredFields();
@@ -63,6 +103,7 @@ public class TableFactory {
                         fieldStrings.add(field.getName() + " " + datatype);
                     }
                 }
+
             }
         }
 
@@ -85,7 +126,17 @@ public class TableFactory {
         return builder.toString();
     }
 
-    private static boolean hasInterface(Class<?> clazz, Class<?> interfaceClass){
+    private Class<?> getGenericType(Field field){
+        if(field.getType() != List.class){
+            return field.getType();
+        }else{
+            Type type = ((ParameterizedType)field.getGenericType()).getActualTypeArguments()[0];
+
+            return (Class<?>)type;
+        }
+    }
+
+    private boolean hasInterface(Class<?> clazz, Class<?> interfaceClass){
         for (Class<?> c :
             clazz.getInterfaces()){
             if(c == interfaceClass)
@@ -94,11 +145,12 @@ public class TableFactory {
         return false;
     }
 
-    private static String createAssociationTable(Class<IdEntity> clazz, Class<IdEntity> argumentClass){
+    private String createAssociationTable(Class<IdEntity> clazz, Class<IdEntity> argumentClass){
         StringBuilder assocTable = new StringBuilder();
         assocTable.append("CREATE TABLE ")
-                .append(clazz.getSimpleName())
-                .append(argumentClass.getSimpleName())
+                .append(clazz.getSimpleName().toUpperCase())
+                .append("_")
+                .append(argumentClass.getSimpleName().toUpperCase())
                 .append("(")
                 .append(clazz.getSimpleName())
                 .append("Id INTEGER,")
@@ -108,8 +160,7 @@ public class TableFactory {
         return assocTable.toString();
     }
 
-    @VisibleForTesting
-    private static Method getMethod(String prefix, Field field, Method[] methods){
+    private Method getMethod(String prefix, Field field, Method[] methods){
         for (Method m: methods){
             String fieldName = field.getName().substring(0, 1).toUpperCase();
             fieldName += field.getName().substring(1);
@@ -122,13 +173,11 @@ public class TableFactory {
         return null;
     }
 
-    @VisibleForTesting
-    private static Method getSetter(Field field, Method[] methods) {
+    private Method getSetter(Field field, Method[] methods) {
         return getMethod("set", field, methods);
     }
 
-    @VisibleForTesting
-    private static Method getGetter(Field field, Method[] methods){
+    private Method getGetter(Field field, Method[] methods){
         return getMethod("get", field, methods);
     }
 }

@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.rynkbit.progressivestrength.day.DayActivity;
-import com.rynkbit.progressivestrength.db.sqlite.DBHelper;
 import com.rynkbit.progressivestrength.exercise.MananageExercisesActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        new DBHelper(this);
 
         fabAddDay = findViewById(R.id.fabAddDays);
         listDays = findViewById(R.id.listDays);

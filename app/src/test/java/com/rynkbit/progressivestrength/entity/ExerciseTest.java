@@ -15,7 +15,7 @@ public class ExerciseTest {
 
         assertEquals(0, exercise.getId());
         assertEquals(0, exercise.getSets());
-        assertEquals(0, exercise.getRepetions());
+        assertEquals(0, exercise.getRepetitions());
         assertEquals(0, exercise.getWeight(), 0.01);
         assertEquals(null, exercise.getName());
 
@@ -23,7 +23,7 @@ public class ExerciseTest {
 
         assertEquals(1, exercise.getId());
         assertEquals(4, exercise.getSets());
-        assertEquals(12, exercise.getRepetions());
+        assertEquals(12, exercise.getRepetitions());
         assertEquals(14.5, exercise.getWeight(), 0.01);
         assertEquals("Übung", exercise.getName());
 
@@ -32,12 +32,12 @@ public class ExerciseTest {
         exercise.setId(2);
         exercise.setName("Übung 2");
         exercise.setSets(12);
-        exercise.setRepetions(4);
+        exercise.setRepetitions(4);
         exercise.setWeight(10);
 
         assertEquals(2, exercise.getId());
         assertEquals(12, exercise.getSets());
-        assertEquals(4, exercise.getRepetions());
+        assertEquals(4, exercise.getRepetitions());
         assertEquals(10, exercise.getWeight(), 0.01);
         assertEquals("Übung 2", exercise.getName());
     }

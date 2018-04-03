@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.rynkbit.progressivestrength.R;
-import com.rynkbit.progressivestrength.db.memory.repository.ExerciseRepository;
 import com.rynkbit.progressivestrength.db.sqlite.facade.ExerciseFacade;
 import com.rynkbit.progressivestrength.entity.Exercise;
 
@@ -53,7 +52,7 @@ public class EditExerciseActivity extends AppCompatActivity implements EditExerc
     public void onExerciseModelChanged(Exercise exercise) {
         editName.setText(exercise.getName());
         editSets.setText(String.valueOf(exercise.getSets()));
-        editRepetions.setText(String.valueOf(exercise.getRepetions()));
+        editRepetions.setText(String.valueOf(exercise.getRepetitions()));
         editWeight.setText(String.valueOf(exercise.getWeight()));
     }
 
