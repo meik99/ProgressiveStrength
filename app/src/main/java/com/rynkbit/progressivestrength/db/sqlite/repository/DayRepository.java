@@ -22,7 +22,15 @@ public class DayRepository implements Repository<Day> {
 
     @Override
     public Day update(Day entity) {
-        return null;
+        new DBHelper(context)
+                .getWritableDatabase()
+                .update(
+                        TABLE,
+                        getContentValues(entity, false),
+                        "id = ?",
+                        new String[]{String.valueOf(entity.getId())}
+                );
+        return findById(entity.getId());
     }
 
     @Override
@@ -67,7 +75,13 @@ public class DayRepository implements Repository<Day> {
 
     @Override
     public void remove(Day entity) {
-
+        new DBHelper(context)
+                .getWritableDatabase()
+                .delete(
+                        TABLE,
+                        "id = ?",
+                        new String[]{String.valueOf(entity.getId())}
+                );
     }
 
     private ContentValues getContentValues(Day day, boolean withId){

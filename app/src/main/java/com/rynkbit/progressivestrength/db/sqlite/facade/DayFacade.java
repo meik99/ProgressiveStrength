@@ -2,9 +2,10 @@ package com.rynkbit.progressivestrength.db.sqlite.facade;
 
 import android.content.Context;
 
+import com.rynkbit.progressivestrength.db.sqlite.repository.DayRepository;
 import com.rynkbit.progressivestrength.entity.Day;
+import com.rynkbit.progressivestrength.entity.Exercise;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,21 +22,29 @@ public class DayFacade implements Facade<Day> {
 
     @Override
     public List<Day> findAll() {
-        return new LinkedList<>();
+        return new DayRepository(context).findAll();
     }
 
     @Override
     public Day findById(int id) {
-        return new Day();
+        return new DayRepository(context).findById(id);
     }
 
     @Override
     public void merge(Day entity) {
+        DayRepository dayRepository = new DayRepository(context);
 
+        if(dayRepository.findById(entity.getId()) != null){
+            dayRepository.update(entity);
+        }else{
+            dayRepository.insert(entity);
+        }
     }
 
     @Override
     public void remove(int id) {
-
+        new DayRepository(context).remove(
+                new Day(id, (Exercise[])null)
+        );
     }
 }
