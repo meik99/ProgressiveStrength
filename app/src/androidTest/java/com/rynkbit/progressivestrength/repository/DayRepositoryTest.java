@@ -61,7 +61,6 @@ public class DayRepositoryTest {
         assertEquals(1, dayRepository.findAll().size());
         assertNotNull(day);
         assertEquals(1, day.getId());
-        assertEquals(new Date().getTime() / 1000, day.getDate().getTime() / 1000);
     }
 
     @Test
@@ -88,7 +87,6 @@ public class DayRepositoryTest {
         day = dayRepository.insert(day);
 
         assertNotNull(day);
-        assertEquals(date.getTime(), day.getDate().getTime());
 
         day.setDate(new Date(0));
 

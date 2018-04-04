@@ -58,7 +58,9 @@ public class Day implements Parcelable, IdEntity {
 
         this.id = id;
 
-        this.exercises.addAll(Arrays.asList(exercises));
+        if(exercises != null) {
+            this.exercises.addAll(Arrays.asList(exercises));
+        }
     }
 
     public int getId() {
